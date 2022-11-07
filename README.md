@@ -17,8 +17,11 @@ Benchmark algorithms to detect erroneous label values in regression datasets
         ├── trained_models
         └── training
 ```
+## Things to Note
 
-# Getting Started 
+Every label quality score in this repo should be such that LOWER values of the score correspond to datapoints that are MORE likely to have a label error.
+
+## Getting Started 
 - `evaluation`: Main folder to start exploring. It consists of 2 files. 
     - `evaluation.ipynb`: use to check current base line and add new scoring techniques. Comments are added to assist through any updates that are required. Main baseline scoring method is `score_residual()`.
     - `utils.py`: it consists of helper functions to effectively generate plot, compute metrics at once and for other intermediate steps. 
@@ -37,7 +40,7 @@ Benchmark algorithms to detect erroneous label values in regression datasets
     - predictions from new models in `modeling/dataset_name/predictions`. 
     - use same "model_name" throughout training, saving predictions, or wherever required.
 
-# Dataset Features: things to know
+## Dataset Features: things to know
 - Each dataset has three special columns i.e., `given_label`, `true_label` and `true_error`. 
 - `given_label`: Observed response variable Y. 
 - `true_label`: Ground truth for variable Y. 
