@@ -22,3 +22,9 @@ Benchmark algorithms to detect erroneous label values in regression datasets
 `evaluation`: this consists of all evaluation notebook and relevent helper functions(`utils.py`). \
 `modeling`: Use this to train models (`training`) and save prediction (`predictions`). Each notebook consists of relevant code to train and save predictions for the specific dataset. \
 if saving the trained models, try to use `trained_models` dir(cosidered as default directory for autogluon based training).
+
+
+
+## Things to Note
+
+Every label quality score in this repo should be such that LOWER values of the score correspond to datapoints that are MORE likely to have a label error.
