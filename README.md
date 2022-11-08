@@ -45,7 +45,7 @@ Benchmark algorithms to detect erroneous label values in regression datasets
 - Each dataset has three special columns i.e., `given_label`, `true_label` and `true_error`. 
     - `given_label`: Observed response variable Y. 
     - `true_label`: Ground truth for variable Y. 
-    - `true_error`: O or 1 entries which represent if given_labels are correct or not.
+    - `true_error`: 0 or 1 entries which represent if given_labels are correct or not.
         ```
         0: label is correct for this datapoint
         1: label is incorrect  
