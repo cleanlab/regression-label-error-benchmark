@@ -17,16 +17,14 @@ Benchmark algorithms to detect erroneous label values in regression datasets
         ├── trained_models
         └── training
 ```
-## Things to Note
-
-Every label quality score in this repo should be such that LOWER values of the score correspond to datapoints that are MORE likely to have a label error.
 
 ## Getting Started 
+
 - `evaluation`: Main folder to start exploring. It consists of 2 files. 
-    - `evaluation.ipynb`: use to check current base line and add new scoring techniques. Comments are added to assist through any updates that are required. Main baseline scoring method is `score_residual()`.
-    - `utils.py`: it consists of helper functions to effectively generate plot, compute metrics at once and for other intermediate steps. 
-    - New label-quality-scoring techniques must be added to `evaluation.ipynb`
-    - Predictions generated through AutoGluon is available in `modeling/dataset_name/predictions`. The pipeline is developed under assumption that predictions are available in this folder.  
+    - `evaluation.ipynb`: This is where you should add new label quality scoring techniques. A baseline label quality scoring method is `score_residual()`. This notebook runs the label quality scoring techniques on all datasets, and evaluates their performance in detecting label errors via various metrics.
+    - `utils.py`: Consists of helper functions to generate plots, compute evaluation metrics, etc. 
+    - New label-quality-scoring techniques should be added to `evaluation.ipynb` rather than here.
+    - Predictions generated through AutoGluon are available in `modeling/dataset_name/predictions`. The pipeline is developed under assumption that predictions (and other model outputs required by a label quality scoring function) are available in this folder.  
 
 - `dataset`: folder to store the datasets
 
@@ -40,12 +38,17 @@ Every label quality score in this repo should be such that LOWER values of the s
     - predictions from new models in `modeling/dataset_name/predictions`. 
     - use same "model_name" throughout training, saving predictions, or wherever required.
 
-## Dataset Features: things to know
+## Things to note
+
+- Every label quality score in this repo should be such that LOWER values of the score correspond to datapoints that are MORE likely to have a label error.
+
 - Each dataset has three special columns i.e., `given_label`, `true_label` and `true_error`. 
-- `given_label`: Observed response variable Y. 
-- `true_label`: Ground truth for variable Y. 
-- `true_error`: It represents if given_labels are correct or not.
-    ```
-    0: label correct
-    1: label error  
-    ```
+    - `given_label`: Observed response variable Y. 
+    - `true_label`: Ground truth for variable Y. 
+    - `true_error`: O or 1 entries which represent if given_labels are correct or not.
+        ```
+        0: label is correct for this datapoint
+        1: label is incorrect  
+        ```
+
+- The `true_label` and `true_error` columns would be unavaible in real applications, and any label-quality-scores should NOT depend on these. In the version of the dataset used for training models, we remove these extra special columns (keeping `given_label`), so that you don't accidentally train your model on them.
