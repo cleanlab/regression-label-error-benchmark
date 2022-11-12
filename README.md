@@ -52,3 +52,7 @@ Benchmark algorithms to detect erroneous label values in regression datasets
         ```
 
 - The `true_label` and `true_error` columns would be unavaible in real applications, and any label-quality-scores should NOT depend on these. In the version of the dataset used for training models, we remove these extra special columns (keeping `given_label`), so that you don't accidentally train your model on them.
+## Notes by Hang
+- You can find the results for all datasets in `evaluation/Plot.ipynb`.
+- The predictions for models/sigma/u(x) by bootstrap are obtained by `modeling/training_models.py`.
+- The results for differents scores are evaluated in `evaluation/eva.py`.
