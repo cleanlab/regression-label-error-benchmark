@@ -10,7 +10,8 @@ We decided a threshold for each dataset in order to categorize them as error (`1
 
 ## 1. Air Quality datasets
 The datasets in this benchmark are subset of data provided at UCI repo [link](https://archive.ics.uci.edu/ml/datasets/air+quality)
-- Modality of dataset: Tabular (Real-life)
+- Tag: `Real`
+- Modality of dataset: Tabular 
 - We are trying to predict particular sensor response based on avialable data from other sensors. 
 
 ### **Dataset preparation**
@@ -28,6 +29,7 @@ The datasets in this benchmark are subset of data provided at UCI repo [link](ht
 
 ## 2. Stanford Politeness Dataset (Wikipedia edition)
 The dataset is derived from data provided at this [link](https://convokit.cornell.edu/documentation/wiki_politeness.html)
+- Tag: `Real`
 - Name in the benchmark: standford_politeness_wiki
 - Shape of data: (1311, 5)
 - Modality of dataset: Text
@@ -42,6 +44,7 @@ On this subset of data, we consider median of all the five annotators as `true_l
 
 ## 3. Stanford Politeness Dataset (Stack edition)
 The dataset is derived from data provided at this [link](https://convokit.cornell.edu/documentation/stack_politeness.html)
+- Tag: `Real`
 - Name in the benchmark: standford_politeness_stack
 - Shape of data: (6603, 5)
 - Modality of dataset: Text
@@ -57,7 +60,7 @@ On this subset of data, we consider median of all the five annotators as `true_l
 ## 4. qPCR telomere 
 The dataset in this section is subset of dataset generated through `R` script provided by authors at [link](https://zenodo.org/record/2615735#.Y0XwdC-B1pQ). \
 Original dataset is simulation dataset and three subsets are created. 
-
+- Tag: `Simulation`
 - Modality of dataset: Tabular (simulated)
 
 ### **Dataset preparation**
@@ -74,6 +77,7 @@ Original dataset is simulation dataset and three subsets are created.
 The dataset is derived from data provided at this [link](http://hilt.cse.unt.edu/resources.html)
 
 we have have create two datasets namely `metaphor_novelity_easy_concat.csv` and `metaphor_novelity_easy_diff.csv`
+- Tag: `Real`
 - Modality of dataset: text (converted to vectors)
 
 ### **Dataset preparation**
@@ -95,7 +99,7 @@ we have have create two datasets namely `metaphor_novelity_easy_concat.csv` and 
 The dataset is derived from data provided at this [link](http://hilt.cse.unt.edu/resources.html)
 
 we have have create two datasets namely `label_aggregation_easy_concat.csv` and `label_aggregation_easy_diff.csv`
-
+- Tag: `Real`
 - Modality of dataset: text (converted to vectors)
 
 ### **Dataset preparation**
