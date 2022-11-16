@@ -58,22 +58,20 @@ def draw_dot_plot(
     scores_considered: list,
     *,
     title: str = "AUROC",
-    figsize: tuple = (8, 6),
+    figsize: tuple = (15, 6),
     alpha=1,
     markersize=8,
 ):
-    plt.rcParams["figure.figsize"] = figsize
-    df = df.sort_values(by=["dataset"])  # sort on y-axis
+    df = df.sort_values(by=["dataset", "model"])  # sort on y-axis
     df["dataset_model"] = df.dataset + " | " + df.model  # title fot y axis per model
     labels = df["dataset_model"].tolist()
-    x = np.arange(len(labels))  # the label locations
-
     score = []
     for score_type in scores_considered:
         score.append(df[score_type])
 
     jf = 0.15  # jitter factor
-
+    
+    plt.rcParams["figure.figsize"] = figsize
     fig, ax = plt.subplots()
     for i in range(len(score)):
         _ = ax.plot(
@@ -93,10 +91,11 @@ def draw_dot_plot(
     ax.tick_params(axis="both", which="major", labelsize=10)
     ax.legend(fontsize=10)
 
-    # plot horizontal lines between each model group
-    a = [(x[i] + x[i + 1]) / 2 for i in range(4, len(x) - 4, 5)]
+    #plot horizontal lines between each model group
+    x = np.arange(len(labels))  # the label locations
+    start = df.model.nunique()
+    a = [(x[i] + x[i + 1]) / 2 for i in range(start-1, len(x)-1, start)]
     [ax.axhline(y=i, linestyle="solid", c="black", linewidth=0.75) for i in a]
-
     fig.tight_layout()
     plt.show()
 
