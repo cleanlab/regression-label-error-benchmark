@@ -68,7 +68,8 @@ def draw_dot_plot(
     score = []
     for score_type in scores_considered:
         score.append(df[score_type])
-
+    
+    x = np.arange(len(labels))  # the label locations
     jf = 0.15  # jitter factor
     
     plt.rcParams["figure.figsize"] = figsize
@@ -92,7 +93,6 @@ def draw_dot_plot(
     ax.legend(fontsize=10)
 
     #plot horizontal lines between each model group
-    x = np.arange(len(labels))  # the label locations
     start = df.model.nunique()
     a = [(x[i] + x[i + 1]) / 2 for i in range(start-1, len(x)-1, start)]
     [ax.axhline(y=i, linestyle="solid", c="black", linewidth=0.75) for i in a]
