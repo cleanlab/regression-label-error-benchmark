@@ -17,11 +17,11 @@ The datasets in this benchmark are subset of data provided at UCI repo [link](ht
 ### **Dataset preparation**
 - `given_label` and `true_label` in each dataset is derived from corresponding `ground truth` and `sensor response`. Details are as below: 
 
-    | Dataset        | given label  | true_label | shape     |
-    |:---------------|:------------:|:----------:|:---------:|
-    | airquality_co  | PT08.S1(CO)  |CO(GT)      |(7344, 12) |
-    | airquality_nmhc| PT08.S2(NMHC)|NMHC(GT)    |(7393, 12) |
-    | airquality_no2 | PT08.S4(NO2) |NO2(GT)     |(887, 12)  |
+    | Dataset        | given label  | true_label | shape     | status in benchmark    |
+    |:---------------|:------------:|:----------:|:---------:|:---------:|
+    | airquality_co  | PT08.S1(CO)  |CO(GT)      |(7344, 12) |`considered` |
+    | airquality_nmhc| PT08.S2(NMHC)|NMHC(GT)    |(7393, 12) |`ignored`    |
+    | airquality_no2 | PT08.S4(NO2) |NO2(GT)     |(887, 12)  |`considered` |
 
 - `given_label` and `true_label` are normalized with division by mean to bring them on same scale.
 - Features `time_slot` and `day_of_week` are derived from `Time` and `Date` features in original dataset. 
@@ -31,6 +31,7 @@ The datasets in this benchmark are subset of data provided at UCI repo [link](ht
 The dataset is derived from data provided at this [link](https://convokit.cornell.edu/documentation/wiki_politeness.html)
 - Tag: `Real`
 - Name in the benchmark: standford_politeness_wiki
+- Status in benchmark: `considered`
 - Shape of data: (1311, 5)
 - Modality of dataset: Text
 
@@ -46,6 +47,7 @@ On this subset of data, we consider median of all the five annotators as `true_l
 The dataset is derived from data provided at this [link](https://convokit.cornell.edu/documentation/stack_politeness.html)
 - Tag: `Real`
 - Name in the benchmark: standford_politeness_stack
+- Status in benchmark: `considered`
 - Shape of data: (6603, 5)
 - Modality of dataset: Text
 
@@ -67,11 +69,11 @@ Original dataset is simulation dataset and three subsets are created.
 - Other than `given_label` and `true_label`, all the features names are preserved to avoid any contradiction and confusion. 
 - `given_label` and `true_label` corresponds to `measured` and `true` columns in original dataset. details are mentioned in below table: 
 
-| Dataset         | given_label    | true_label  |      shape | 
-|:----------------|:-------------: |:-----------:|-----------:|
-|telomere_cq_scg  |measured.cq.scg |true.cq.scg  |(10000, 4)  |
-|telomere_cq_telo |measured.cq.telo|true.telo.cq |(10000, 5)  |
-|telomere_ts      |measured.ts     |true.ts      |(10000, 5)  |
+| Dataset         | given_label    | true_label  |      shape | status in benchmark |
+|:----------------|:-------------: |:-----------:|-----------:|     -----------:    |
+|telomere_cq_scg  |measured.cq.scg |true.cq.scg  |(10000, 4)  |`ignored`            |
+|telomere_cq_telo |measured.cq.telo|true.telo.cq |(10000, 5)  |`considered`         |
+|telomere_ts      |measured.ts     |true.ts      |(10000, 5)  |`ignored`            |
 
 ## 5. Metaphor novelity
 The dataset is derived from data provided at this [link](http://hilt.cse.unt.edu/resources.html)
@@ -81,19 +83,25 @@ we have have create two datasets namely `metaphor_novelity_easy_concat.csv` and 
 - Modality of dataset: text (converted to vectors)
 
 ### **Dataset preparation**
-| Dataset                       |      shape | 
-|:----------------              |-----------:|
-|metaphor_novelity_easy_concat  |(3162, 203) |
-|metaphor_novelity_easy_diff    |(3162, 103) |
+| Dataset                       |      shape | status in benchmark |
+|:----------------              |-----------:| ------------------: |
+|metaphor_novelity_easy_concat  |(3162, 203) |`ignored`            |
+|metaphor_novelity_easy_diff    |(3162, 103) |`ignored`            |
+|metaphor_novelity_random       |(3162, 203) |`considered`         |
 
 - Orginal dataset provides two words per example. We have used the testing dataset as expert annotations are provided.
 - We have used fastText word embeddings to calculate vectors for both the word available in the dataset. 
 - `metaphor_novelity_easy_concat.csv`: both the word vectors are concatenated to get final feature. They are named vector_1, vector_2..., and so on. 
 - `metaphor_novelity_easy_diff.csv`: We subtract the word vectors to get final feature. They are named vector_1, vector_2..., and so on. 
+- `metaphor_novelity_random.csv`: both the word vectors are concatenated to get final feature. They are named vector_1, vector_2..., and so on. 
 
+In case of `metaphor_novelity_easy_diff` and `metaphor_novelity_easy_concat`: 
 - `Score` is considered as `true_label`. These are expert annotations available along with dataset. 
 - Average of all the annotations is considered as `given_label`.
 
+In case of `metaphor_novelity_random`: 
+- `Score` is considered as `true_label`. These are expert annotations available along with dataset. 
+- `given_label` is randomly selected among all the five annotators.
 
 ## 6. Label aggregation 
 The dataset is derived from data provided at this [link](http://hilt.cse.unt.edu/resources.html)
@@ -103,31 +111,21 @@ we have have create two datasets namely `label_aggregation_easy_concat.csv` and 
 - Modality of dataset: text (converted to vectors)
 
 ### **Dataset preparation**
-| Dataset                       |      shape | 
-|:----------------              |-----------:|
-|label_aggregation_easy_concat  |(3112, 203) |
-|label_aggregation_easy_diff    |(3112, 103) |
+| Dataset                       |      shape | status in benchmark |
+|:----------------              |-----------:|------------------: |
+|label_aggregation_easy_concat  |(3112, 203) |`ignored`           |
+|label_aggregation_easy_diff    |(3112, 103) |`ignored`           |
+|label_aggregation_random       |(3112, 203) |`considered`        |
 
 - Original dataset provides 3 subsets i.e., training, validation and test. we have combined them into one datasets. 
 - `label_aggregation_easy_concat.csv`: both the word vectors (dim=100) are concatenated to get final feature. They are named vector_1, vector_2..., and so on. 
 - `label_aggregation_easy_diff.csv`: We subtract the word vectors (dim=100) to get final features. They are named vector_1, vector_2..., and so on.
+- `label_aggregation_random.csv`: both the word vectors (dim=100) are concatenated to get final feature. They are named vector_1, vector_2..., and so on. 
+
+In case of `label_aggregation_easy_concat` and `label_aggregation_easy_diff`:
 - `True_Label` is renamed to `true_label` for maintaining the structure similar to other datasets. 
 - Average of all the annotations is considered as `given_label`.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+In case of `label_aggregation_random`:
+- `True_Label` is renamed to `true_label` for maintaining the structure similar to other datasets. 
+- `given_label` is randomly selected among all the five annotators.
