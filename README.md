@@ -1,5 +1,8 @@
-# regression-label-error-benchmark
-Benchmark algorithms to detect erroneous label values in regression datasets
+# Benchmarking algorithms to detect erroneous label values in regression datasets.
+
+This repository is only for intended for scientific purposes. 
+To find errors in your own regression data, you should instead use the official [cleanlab](https://github.com/cleanlab/cleanlab) library.
+
 
 ### Directory Structure
 ```
