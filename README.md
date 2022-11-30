@@ -41,6 +41,26 @@ To find errors in your own regression data, you should instead use the official 
     - predictions from new models in `modeling/dataset_name/predictions`. 
     - use same "model_name" throughout training, saving predictions, or wherever required.
 
+## Using RANSAC with AutoGluon 
+
+- Toy dataset can be created using `make_data`. Code is available in `utils.py`. 
+- `utils.py` also has the code for `AutoGluonPredictor` class. This can be used to run sklearn or any other custom modules with AutoGluon. 
+- By Default, `AutoGluonPredictor` considers cross-validation in regression problem. 
+- Current defination of `AutoGluonPredictor` is as per requirements for sklearn modules. It is suggested to write custom modules in with methods used in the `AutoGluonPredictor` class.
+
+- Example to use AutoGluonPredictor is available in `evaluation.ipynb`(section: AutoGluon+ RANSAC). 
+
+Custom module must seek following methods from AutoGluonPredictor:
+
+```
+fit(X, y): Fit model to given training data and target values.
+
+score(X, y): Returns the mean accuracy on the given test data, which is used for the stop criterion defined by stop_score. Additionally, the score is used to decide which of two equally large consensus sets is chosen as the better one.
+
+predict(X): Returns predicted values using the linear model, which is used to compute residual error using loss function.
+```
+
+
 ## Things to note
 
 - Every label quality score in this repo should be such that LOWER values of the score correspond to datapoints that are MORE likely to have a label error.
