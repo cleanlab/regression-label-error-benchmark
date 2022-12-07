@@ -19,9 +19,9 @@ The datasets in this benchmark are subset of data provided at UCI repo [link](ht
 
     | Dataset        | given label  | true_label | shape     | status in benchmark    |
     |:---------------|:------------:|:----------:|:---------:|:---------:|
-    | airquality_co  | PT08.S1(CO)  |CO(GT)      |(7344, 12) |`considered` |
-    | airquality_nmhc| PT08.S2(NMHC)|NMHC(GT)    |(7393, 12) |`ignored`    |
-    | airquality_no2 | PT08.S4(NO2) |NO2(GT)     |(887, 12)  |`considered` |
+    | airquality_co  | PT08.S1(CO)  |CO(GT)      |(7344, 8) |`considered` |
+    | airquality_nmhc| PT08.S2(NMHC)|NMHC(GT)    |(887, 12) |`ignored`    |
+    | airquality_no2 | PT08.S4(NO2) |NO2(GT)     |(7393, 9)  |`considered` |
 
 - `given_label` and `true_label` are normalized with division by mean to bring them on same scale.
 - Features `time_slot` and `day_of_week` are derived from `Time` and `Date` features in original dataset. 
@@ -113,9 +113,9 @@ we have have create two datasets namely `label_aggregation_easy_concat.csv` and 
 ### **Dataset preparation**
 | Dataset                       |      shape | status in benchmark |
 |:----------------              |-----------:|------------------: |
-|label_aggregation_easy_concat  |(3112, 203) |`ignored`           |
+|label_aggregation_easy_concat  |(3112, 203) |`considered`        |
 |label_aggregation_easy_diff    |(3112, 103) |`ignored`           |
-|label_aggregation_random       |(3112, 203) |`considered`        |
+|label_aggregation_random       |(3112, 203) |`ignored`           |
 
 - Original dataset provides 3 subsets i.e., training, validation and test. we have combined them into one datasets. 
 - `label_aggregation_easy_concat.csv`: both the word vectors (dim=100) are concatenated to get final feature. They are named vector_1, vector_2..., and so on. 
