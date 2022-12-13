@@ -263,7 +263,7 @@ def make_data(feature_size = (20, 2),
     bias = 0.8,
     coeff = [2, 0.1],
     error = [-2, 0, 2], 
-    prob_error = [0.2, 0.6, 0.2],  
+    prob_error = [0.2, 0.8, 0.2],  
     seed = 42
 ) -> pd.DataFrame:
     """
