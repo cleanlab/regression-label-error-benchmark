@@ -136,7 +136,7 @@ class CleanlabRegressor(TabularPredictor):
         residual = predictions - label
         return np.exp(-abs(residual))
     
-    def predict(self, model = "LightGBM_BAG_L1"):
+    def predict(self):
         """ 
         Return np.ndarray of predictions per datapoint. 
         It combines out-of-fold predictions for datapoints that were left until last iteration and
@@ -144,11 +144,11 @@ class CleanlabRegressor(TabularPredictor):
         """
         # Out-of-fold predictions on datapoints that are left after max_trail or patience. 
         kept_df = self.kept_dataframe.copy()
-        kept_df['predictions'] = super().get_oof_pred(model=model)
+        kept_df['predictions'] = super().get_oof_pred()
         
         # Using LightGBM to predict on datapoints that were removed. 
         removed_df = self.removed_dataframe.copy()
-        removed_df['predictions'] = super().predict(removed_df, model=model)
+        removed_df['predictions'] = super().predict(removed_df)
         
         # Concat to get final dataframe with index same as original dataset. 
         final_dataframe = pd.concat([kept_df, removed_df], axis=0)
