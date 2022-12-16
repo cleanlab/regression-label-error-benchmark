@@ -13,6 +13,7 @@ class CleanlabRegressor(TabularPredictor):
         preset: str = "best_quality",
         verbosity: int = 1, 
         remove_per_iter: float = 2.5, 
+        scoring_func = None, 
         patience = 5,
         max_trail = 100,  
         ):
@@ -31,6 +32,7 @@ class CleanlabRegressor(TabularPredictor):
         self.preset = preset
         self.verbosity = verbosity
         self.remove_per_iter = remove_per_iter
+        self.scoring_func = scoring_func
         self.patience = patience
         self.max_trail = max_trail
     
@@ -63,7 +65,11 @@ class CleanlabRegressor(TabularPredictor):
             oof_pred = predictor.get_oof_pred()
             
             # Calculate label quality score and threshold as per remove_per_iter argument 
-            label_quality_score = self.score(y, oof_pred)
+            if self.scoring_func is None:
+                label_quality_score = self.score(y, oof_pred)
+            else: 
+                label_quality_score = self.scoring_func(y,oof_pred)
+
             threshold = np.percentile(label_quality_score, self.remove_per_iter)
             to_keep_mask = (label_quality_score >= threshold)
             keep_indicies = np.where(to_keep_mask==1)[0]
