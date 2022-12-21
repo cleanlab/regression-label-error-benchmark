@@ -3,38 +3,78 @@
 This repository is only for intended for scientific purposes. 
 To find errors in your own regression data, you should instead use the official [cleanlab](https://github.com/cleanlab/cleanlab) library.
 
+# Change log 
+We have created two set of benchmarks based on feature engineering. These benchmarks are named as low_rsquared_set and high_rsquared_set. 
+low_rsquared_set is same as benchmarks that we were using. There has been minor changes in names, 2 datasets have been removed, 1 has been modified.
+
+**low_rsquared_set:** high representation of datasets with low r-squared values observed during training.
+
+**high_rsquared_set:** high representation of datasets with high r-squared values observed during training.
+
+**common:** This is added in both the sets. This folder contains common methods applicable. It includes, utils, RANSAC, Regressor. 
+
+**1. low_rsquared_set:**
+- airquality_co_reduced
+- airquality_no2_reduced
+- stanford_politeness_stack_furthest
+- stanford_politeness_wiki_furthest
+- telomere_cq_telo
+
+    **Modified:**
+    - airquality_co and airquality_no2 are renamed to airquality_co_reduced, airquality_no2_reduced respectively to create distinction between datasets in low_rsquared_set and high_rsquared_set. 
+    - stanford_politeness_stack_furthest is similar to stanford_politeness_stack in terms of given_label generation. Number of features has been reduced in comparision to stanford_politeness_stack. In this new version, we have kept only those datasets that had annotator agreement. 
+    - stanford_politeness_wiki has been renamed to stanford_politeness_wiki_furthest to create distinction between datasets in low_rsquared_set and high_rsquared_set.
+
+    **Deleted:**
+    - label_aggregation dataset has been deleted as it shared large chunk of features with metaphor_novelty. 
+    - metaphor_novelty has been moved to high_rsquared_set as we were able to create only one set that had resonable r-squared value. 
+
+    **No change:**
+    - There is no change in telomere_cq_telo dataset. This is part of both the set of benchmarks. 
+
+
+**2. high_rsquared_set**
+- airquality_co_full
+- airquality_no2_full
+- metaphor_novelty_concat_average
+- stanford_politeness_stack_HFSE_random 
+- stanford_politeness_wiki_random 
+- telomere_cq_telo
+
 
 ### Directory Structure
 ```
 .
 ├── README.md
+├── common
+│   ├── utils.py 
+│   ├── RANSAC.py
+│   ├── Regressor.py
 ├── dataset
-│   └── airquality_co.csv
 ├── evaluation
-│   ├── __init__.py
 │   ├── evaluation.ipynb
-│   └── utils.py
 └── modeling
     └── airquality_co
         ├── predictions
-        ├── trained_models
         └── training
 ```
 
 ## Getting Started 
-
+- Both high_rsquared_set and low_squared_set contains same folder structure. 
 - `evaluation`: Main folder to start exploring. It consists of 2 files. 
     - `evaluation.ipynb`: This is where you should add new label quality scoring techniques. A baseline label quality scoring method is `score_residual()`. This notebook runs the label quality scoring techniques on all datasets, and evaluates their performance in detecting label errors via various metrics.
     - `utils.py`: Consists of helper functions to generate plots, compute evaluation metrics, etc. 
     - New label-quality-scoring techniques should be added to `evaluation.ipynb` rather than here.
     - Predictions generated through AutoGluon are available in `modeling/dataset_name/predictions`. The pipeline is developed under assumption that predictions (and other model outputs required by a label quality scoring function) are available in this folder.  
 
-- `dataset`: folder to store the datasets
+- `common`: contain methods and modules that are common for use across all the datasets. 
 
 - `modeling`: This folder contains all the information and code needed to train models on a specific dataset. Each dataset will have a folder named after itself i.e., airquality_co etc. Each dataset folder has three sub-directories: 
     - `predictions`: It stores predictions of different models considered during training. 
     - `trained_models`: Stores the trained models as required. 
     - `training`: It consist of notebook to perform trainig. It currently has defined pipeline to train models using AutoGluon. 
+
+- `dataset`: folder to store the datasets
 
 - It is recommended to save: 
     - the trained models in `modeling/dataset_name/trained_models`, 

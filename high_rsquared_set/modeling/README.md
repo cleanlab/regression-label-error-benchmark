@@ -19,9 +19,9 @@ The datasets in this benchmark are subset of data provided at UCI repo [link](ht
 
     | Dataset        | given label  | true_label | shape     | status in benchmark    |
     |:---------------|:------------:|:----------:|:---------:|:---------:|
-    | airquality_co_reduced  | PT08.S1(CO)  |CO(GT)      |(7344, 8) |`considered` |
+    | airquality_co  | PT08.S1(CO)  |CO(GT)      |(7344, 8) |`considered` |
     | airquality_nmhc| PT08.S2(NMHC)|NMHC(GT)    |(887, 12) |`ignored`    |
-    | airquality_no2_reduced | PT08.S4(NO2) |NO2(GT)     |(7393, 9)  |`considered` |
+    | airquality_no2 | PT08.S4(NO2) |NO2(GT)     |(7393, 9)  |`considered` |
 
 - `given_label` and `true_label` are normalized with division by mean to bring them on same scale.
 - Features `time_slot` and `day_of_week` are derived from `Time` and `Date` features in original dataset. 
@@ -30,7 +30,7 @@ The datasets in this benchmark are subset of data provided at UCI repo [link](ht
 ## 2. Stanford Politeness Dataset (Wikipedia edition)
 The dataset is derived from data provided at this [link](https://convokit.cornell.edu/documentation/wiki_politeness.html)
 - Tag: `Real`
-- Name in the benchmark: standford_politeness_wiki_furthest
+- Name in the benchmark: standford_politeness_wiki
 - Status in benchmark: `considered`
 - Shape of data: (1311, 5)
 - Modality of dataset: Text
@@ -46,9 +46,9 @@ On this subset of data, we consider median of all the five annotators as `true_l
 ## 3. Stanford Politeness Dataset (Stack edition)
 The dataset is derived from data provided at this [link](https://convokit.cornell.edu/documentation/stack_politeness.html)
 - Tag: `Real`
-- Name in the benchmark: standford_politeness_stack_furthest
+- Name in the benchmark: standford_politeness_stack
 - Status in benchmark: `considered`
-- Shape of data: (1636, 5)
+- Shape of data: (6603, 5)
 - Modality of dataset: Text
 
 ### **Dataset preparation**
@@ -76,7 +76,6 @@ Original dataset is simulation dataset and three subsets are created.
 |telomere_ts      |measured.ts     |true.ts      |(10000, 5)  |`ignored`            |
 
 ## 5. Metaphor novelity
-***MOVED TO HIGH_RSQUARED_SET***
 The dataset is derived from data provided at this [link](http://hilt.cse.unt.edu/resources.html)
 
 we have have create two datasets namely `metaphor_novelity_easy_concat.csv` and `metaphor_novelity_easy_diff.csv`
@@ -88,15 +87,13 @@ we have have create two datasets namely `metaphor_novelity_easy_concat.csv` and 
 |:----------------              |-----------:| ------------------: |
 |metaphor_novelity_easy_concat  |(3162, 203) |`ignored`            |
 |metaphor_novelity_easy_diff    |(3162, 103) |`ignored`            |
-|metaphor_novelity_random       |(3162, 203) |`ignored`         |
-|metaphor_novelity_concat_average |(3162, 203) |`considered`         |
+|metaphor_novelity_random       |(3162, 203) |`considered`         |
 
 - Orginal dataset provides two words per example. We have used the testing dataset as expert annotations are provided.
 - We have used fastText word embeddings to calculate vectors for both the word available in the dataset. 
 - `metaphor_novelity_easy_concat.csv`: both the word vectors are concatenated to get final feature. They are named vector_1, vector_2..., and so on. 
 - `metaphor_novelity_easy_diff.csv`: We subtract the word vectors to get final feature. They are named vector_1, vector_2..., and so on. 
 - `metaphor_novelity_random.csv`: both the word vectors are concatenated to get final feature. They are named vector_1, vector_2..., and so on. 
-- `metaphor_novelity_concat_average.csv`: both the word vectors are concatenated to get final feature. They are named vector_1, vector_2..., and so on. 
 
 In case of `metaphor_novelity_easy_diff` and `metaphor_novelity_easy_concat`: 
 - `Score` is considered as `true_label`. These are expert annotations available along with dataset. 
@@ -106,13 +103,7 @@ In case of `metaphor_novelity_random`:
 - `Score` is considered as `true_label`. These are expert annotations available along with dataset. 
 - `given_label` is randomly selected among all the five annotators.
 
-In case of `metaphor_novelity_concat_average`: 
-- `Score` is considered as `true_label`. These are expert annotations available along with dataset. 
-- Average of all the annotations is considered as `given_label`.
-
 ## 6. Label aggregation 
-***DELETED***
-
 The dataset is derived from data provided at this [link](http://hilt.cse.unt.edu/resources.html)
 
 we have have create two datasets namely `label_aggregation_easy_concat.csv` and `label_aggregation_easy_diff.csv`
