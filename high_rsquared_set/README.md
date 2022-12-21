@@ -1,7 +1,7 @@
 # HIGH_RSQUARED_SET
 
 Following datasets are considered in this set: 
-- airquality_co_full
+- airquality_co_full 
 - airquality_no2_full
 - metaphor_novelty_concat_average
 - stanford_politeness_stack_HFSE_random 
