@@ -11,7 +11,10 @@ low_rsquared_set is same as benchmarks that we were using. There has been minor 
 
 **high_rsquared_set:** high representation of datasets with high r-squared values observed during training.
 
-**common:** This is added in both the sets. This folder contains common methods applicable. It includes, utils, RANSAC, Regressor. 
+**common:** This is added in both the sets. This folder contains common methods applicable. It includes:
+- `utils`: Contains methods to plot results, compute all the metrics and other supporting method. 
+- `RANSAC`: Modified sklearn RANSAC Regressor to take custom loss function 
+- `Regressor`: Custom regressor that removes x% of data every iteration and train with AutoGluon.
 
 **1. low_rsquared_set:**
 - airquality_co_reduced
@@ -43,15 +46,16 @@ low_rsquared_set is same as benchmarks that we were using. There has been minor 
 
 
 ### Directory Structure
+for each of low_rsquared_set and high_rsquared_set
 ```
 .
 ├── README.md
-├── common
-│   ├── utils.py 
-│   ├── RANSAC.py
-│   ├── Regressor.py
 ├── dataset
 ├── evaluation
+│   ├── common
+│   │   ├── utils.py 
+│   │   ├── RANSAC.py
+│   │   ├── Regressor.py
 │   ├── evaluation.ipynb
 └── modeling
     └── airquality_co
@@ -63,11 +67,11 @@ low_rsquared_set is same as benchmarks that we were using. There has been minor 
 - Both high_rsquared_set and low_squared_set contains same folder structure. 
 - `evaluation`: Main folder to start exploring. It consists of 2 files. 
     - `evaluation.ipynb`: This is where you should add new label quality scoring techniques. A baseline label quality scoring method is `score_residual()`. This notebook runs the label quality scoring techniques on all datasets, and evaluates their performance in detecting label errors via various metrics.
-    - `utils.py`: Consists of helper functions to generate plots, compute evaluation metrics, etc. 
     - New label-quality-scoring techniques should be added to `evaluation.ipynb` rather than here.
     - Predictions generated through AutoGluon are available in `modeling/dataset_name/predictions`. The pipeline is developed under assumption that predictions (and other model outputs required by a label quality scoring function) are available in this folder.  
 
-- `common`: contain methods and modules that are common for use across all the datasets. 
+    - `common`: contain methods and modules that are common for use across all the datasets. 
+        - `utils.py`: Consists of helper functions to generate plots, compute evaluation metrics, etc. 
 
 - `modeling`: This folder contains all the information and code needed to train models on a specific dataset. Each dataset will have a folder named after itself i.e., airquality_co etc. Each dataset folder has three sub-directories: 
     - `predictions`: It stores predictions of different models considered during training. 
@@ -115,6 +119,7 @@ predict(X): Returns predicted values using the linear model, which is used to co
         ```
 
 - The `true_label` and `true_error` columns would be unavaible in real applications, and any label-quality-scores should NOT depend on these. In the version of the dataset used for training models, we remove these extra special columns (keeping `given_label`), so that you don't accidentally train your model on them.
+
 ## Notes by Hang
 - You can find the results for all datasets in `evaluation/Plot.ipynb`.
 - The predictions for models/sigma/u(x) by bootstrap are obtained by `modeling/training_models.py`.

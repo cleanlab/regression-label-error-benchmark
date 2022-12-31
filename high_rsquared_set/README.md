@@ -14,3 +14,5 @@ Quick introduction:
 3. stanford_politeness_stack_HFSE_random uses Hugging Face Sentence Encoder for generating features. 
 4. stanford_politeness_wiki_random: given_labels are selected randomly from all the five annotators. 
 5. telomere_cq_telo is common in both the sets. 
+
+# Details are available in low_rsquared_set [README](https://github.com/cleanlab/regression-label-error-benchmark/blob/main/low_rsquared_set/modeling/README.md)
