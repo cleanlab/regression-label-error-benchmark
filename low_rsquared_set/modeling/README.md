@@ -17,15 +17,19 @@ The datasets in this benchmark are subset of data provided at UCI repository [li
 | Modality  | `Tabluar` |
 
 - **Data Domain:** Air quality sensor measurement 
-- **Regression Task:** Given information from other sensors and environmental parameters like temperature and humidity, can we predict sensor measurement value of a particular gas type? In this section, we are considering two predicting sensor measurement value of two gases carbon monooxide (co) and Nitrogen dioxide ($NO_2$)
+- **Regression Task:** Given information from other sensors and environmental parameters like temperature and humidity, can we predict sensor measurement value of a particular gas type? In this section, we are considering prediction of sensor measurement value of two gases carbon monooxide ($CO$) and Nitrogen dioxide ($NO_2$)
 
-- **Data Collection in Original Dataset**: 
-    - Data collection using 5 different sensors. Also, uses referense analyzer to collect ground truth information. 
-    - Records environmental parameters like T, AH, RH 
-    - For each sensor they record hourly averaged data sensor response. 
+- **Data Collection in Original Dataset:**
+    
+    - Records environmental parameters like T, AH, and RH
+    - hourly averaged responses from an array of 5 metal oxide chemical sensors embedded in an Air Quality Chemical Multisensor Device.
+    - Ground truth is collected using a co-located certified reference analyzer. Finally, they are hourly averaged.
+    - The aim of data collection is to develop an approach for neural calibration of a newly designed low-cost multi-sensor device.
 
-- **given_label**: Response of the sensor that is to be considered for calibration. 
-- **true_label**: Data collected from a reference analyzer that is placed along with the sensor under test. Data is collected at same time.  
+- **true_label:** For both gases, ground truth is collected using a certified reference analyzer. This is mounted along with the multi-sensor device.
+
+- **given_label:** For the two gases ($CO$ and $NO_2$), data collected through Air Quality Chemical Multisensor Device is considered as a given label. These sensors are susceptible to sensor drift which can eventually be affecting sensors' concentration estimation capabilities.
+
 
 - **Paper**:
     S. De Vito, E. Massera, M. Piga, L. Martinotto, G. Di Francia, On field calibration of an electronic nose for benzene estimation in an urban pollution monitoring scenario, Sensors and Actuators B: Chemical, Volume 129, Issue 2, 22 February 2008, Pages 750-757, ISSN 0925-4005, [[Web Link]](http://dx.doi.org/10.1016/j.snb.2007.09.060).
@@ -76,14 +80,16 @@ The dataset is derived from data provided at this [link](https://convokit.cornel
 
 - **Data Collection in Original Dataset**: 
     - Collected from wikipedia talk pages 
-    - 5 annotators provides politeness rating on scale 0-25. 
-
-- **given_label**: 
-    - `stanford_politeness_wiki_furthest`: labels which are furthest from the median of all the 5 annotators
-    - `stanford_politeness_wiki_random`: labels are randomly selected among the 5 annotators 
+    - The original annotations from Amazon Mechanical Turkers for the given utterance. Ratings are on a 1-25 scale.
+    - There are total of 5 annotators. 
 
 - **true_label**: 
     Median of all the 5 annotators are considered as true_label. This is same in both the datasets considered in the benchmark. 
+
+- **given_label**: 
+    - `stanford_politeness_wiki_furthest`: labels which are furthest from the median of all the 5 annotations. This is done to create a tough regression problem. 
+    - `stanford_politeness_wiki_random`: labels are randomly selected among available 5 annotation.  
+
     
 
 **Dataset Preparation**
@@ -117,14 +123,16 @@ The dataset is derived from data provided at this [link](https://convokit.cornel
 
 - **Data Collection in Original Dataset**: 
     - Collected from Stack Exchange requests. 
-    - 5 annotators provides politeness rating on scale 0-25. 
-
-- **given_label**: 
-    - `stanford_politeness_stack_furthest`: labels which are furthest from the median of all the 5 annotators
-    - `stanford_politeness_stack_HFSE_random`: labels are randomly selected among the 5 annotators 
+    - The original annotations from Amazon Mechanical Turkers for the given utterance. Ratings are on a 1-25 scale.
+    - There are total of 5 annotators. 
 
 - **true_label**: 
     Median of all the 5 annotators are considered as true_label. This is same in both the datasets considered in the benchmark. 
+
+- **given_label**: 
+    - `stanford_politeness_stack_furthest`: labels which are furthest from the median of all the 5 annotators.
+    - `stanford_politeness_stack_HFSE_random`: labels are randomly selected among the 5 annotators. 
+
 
 
 **Dataset preparation**
@@ -145,7 +153,7 @@ The dataset is derived from data provided at this [link](https://convokit.cornel
     model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
     ```
 
-## 5. Metaphor novelity
+## 4. Metaphor novelity
 The dataset is derived from data provided at this [link](http://hilt.cse.unt.edu/resources.html)
 
 |category| value|
@@ -158,10 +166,13 @@ The dataset is derived from data provided at this [link](http://hilt.cse.unt.edu
 
 - **Data Collection in Original Dataset**: 
     - 5 annotators provides politeness rating on scale 0-3. 
+    - Five annotations were collected for each instance using Amazon Mechanical Turk.
 
-- **given_label**: Average of all the five annotators 
+- **true_label**: ground truth is collected using expert annotators. These are provided with the dataset. Each instance was annotated by two trained annotators who were native English speakers. In cases in which the annotators only disagreed
+by a small amount (e.g., a 1 and a 2), their labels were averaged. In cases of larger disagreement (e.g., a 0 and a 3), the annotations were adjudicated by a third party.
 
-- **true_label**: ground truth is collected using expert annotators. These are provided with the dataset. 
+- **given_label**: Average of all the five annotations collected through Amazon Mechanical Turk. 
+
 
 - **Paper:**
     Natalie Parde and Rodney D. Nielsen. A Corpus of Metaphor Novelty Scores for Syntactically-Related Word Pairs. To appear in the Proceedings of the 11th International Conference on Language Resources and Evaluation (LREC 2018). Miyazaki, Japan, May 7-12, 2018.
@@ -181,7 +192,7 @@ In case of `metaphor_novelity_concat_average`:
 - `Score` is considered as `true_label`. These are expert annotations available along with dataset. 
 - Average of all the annotations is considered as `given_label`.
 
-## 6. qPCR telomere 
+## 5. qPCR telomere 
 The dataset in this section is subset of dataset generated through `R` script provided by authors at [link](https://zenodo.org/record/2615735#.Y0XwdC-B1pQ). 
 
 |category| value|
@@ -192,11 +203,13 @@ The dataset in this section is subset of dataset generated through `R` script pr
 - **Data Domain:** Genetics
 - **Regression Task:** Simple regression task where independent variables are taken from normal distribution. Dependent variable= $f(\text{independent variables}) + error $. Error is also taken from a normal distribution. 
 
-- **Data Collection in Original Dataset**: Synthectic data generated using R script. Factors domain knowledge to generate this. 
+- **Data Collection in Original Dataset**: 
+    - Synthectic data generated using R script. 
+    - Authors have provided the formula based on their domain knowledge. 
 
-- **given_label**: Error induced out of a normal distribution. it is defined as true_label + error 
+- **true_label**: Authors try to simulate this using parameters from their domain knowledge. These parameters defines normal distributions that act as independent variables.  
 
-- **true_label**: Calculated directly from the mathematical formula where independent variables are taken from a normal distribution. 
+- **given_label**: it is defined as true_label + error. where error is also from normal distribution. 
 
 - **Paper:**
     Nettle D, Seeker L, Nussey D, Froy H, Bateson M (2019) Consequences of measurement error in qPCR telomere data: A simulation study. PLoS ONE 14(5): e0216118. https://doi.org/10.1371/journal.pone.0216118
