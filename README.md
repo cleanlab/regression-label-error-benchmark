@@ -18,6 +18,7 @@ To find errors in your own regression data, you should instead use the official 
 
 ## Realdata
 - `realdata`: Main folder for the simulation results in Section 6.
+    - `data_preprocessing`: method to pre-preocess the data
     - `dataset`: folder to store the datasets
     - `eva_all`: evaluate the results to get Table 4.
     - `utils.py`: Consists of helper functions to generate data, etc. 
