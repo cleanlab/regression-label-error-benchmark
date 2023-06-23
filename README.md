@@ -25,4 +25,4 @@ To find errors in your own regression data, you should instead use the official 
     - `modeling`: This folder contains all the information and code needed to train models on a specific dataset. Each dataset will have a folder named after itself i.e., airquality_co etc. Each dataset folder has three sub-directories: 
     - `predictions`: It stores predictions of different models considered during training. 
     - `trained_models`: Stores the trained models as required. 
-    - `training`: It consist of notebook to perform trainig. It currently has defined pipeline to train models using AutoGluon. 
+
