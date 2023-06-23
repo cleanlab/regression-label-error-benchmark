@@ -23,6 +23,6 @@ To find errors in your own regression data, you should instead use the official 
     - `eva_all`: evaluate the results to get Table 4.
     - `utils.py`: Consists of helper functions to generate data, etc. 
     - `modeling`: This folder contains all the information and code needed to train models on a specific dataset. Each dataset will have a folder named after itself i.e., airquality_co etc. Each dataset folder has two sub-directories: 
-    -- `predictions`: It stores predictions of different models considered during training. 
-    -- `trained_models`: Stores the trained models as required. 
+    -  `predictions`: It stores predictions of different models considered during training. 
+    - `trained_models`: Stores the trained models as required. 
 
